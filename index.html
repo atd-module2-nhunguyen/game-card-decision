@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Card Game Sample</title>
+<title>Single Card Random Reveal</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -22,40 +22,31 @@
     color: white;
     cursor: pointer;
     user-select: none;
-    margin: 10px;
+    margin: 10px auto;
   }
   .card.open {
     background-color: #eee;
     color: #333;
   }
-  .card-container {
-    display: flex;
-  }
 </style>
 </head>
 <body>
 
-<div class="card-container">
-  <div class="card" data-type="Strategic">Click me</div>
-  <div class="card" data-type="Tactical">Click me</div>
-  <div class="card" data-type="Operational">Click me</div>
-</div>
+<div class="card">Click me</div>
 
 <script>
-  const cards = document.querySelectorAll('.card');
+  const card = document.querySelector('.card');
+  const types = ["Strategic", "Tactical", "Operational"];
 
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      if (card.classList.contains('open')) {
-        // Close card back to initial state
-        card.textContent = 'Click me';
-        card.classList.remove('open');
-      } else {
-        // Open card to show type
-        card.textContent = card.getAttribute('data-type');
-        card.classList.add('open');
-      }
-    });
+  card.addEventListener('click', () => {
+    if (card.classList.contains('open')) {
+      card.textContent = 'Click me';
+      card.classList.remove('open');
+    } else {
+      const randomIndex = Math.floor(Math.random() * types.length);
+      card.textContent = types[randomIndex];
+      card.classList.add('open');
+    }
   });
 </script>
 
